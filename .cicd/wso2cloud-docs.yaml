@@ -1,0 +1,16 @@
+trigger:
+  paths:
+    include:
+      - ".cicd/**"
+      - "docs/**"
+      - "src/**"
+      - "static/**"
+      - "*.ts"
+      - "package*.json"
+      - "Dockerfile"
+      - "nginx.conf"
+type: docker
+context: .
+ecrRepository: 259428491004.dkr.ecr.us-east-2.amazonaws.com/system/wso2cloud-docs
+workloadPaths:
+  - controlplane/common/domains/developers/namespaces/wso2cloud/projects/core/components/wso2cloud-docs/workload.yaml

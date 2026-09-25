@@ -14,8 +14,10 @@ const config: Config = {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
 
-  url: 'https://wso2.github.io', // or actual hosting domain
-  baseUrl: '/docs-wso2cloud/', // match your deployment path
+  // TODO: set to the final production docs host (not yet confirmed). The same
+  // image is promoted dev -> stage -> prod, so this must be the prod URL.
+  url: 'https://TODO-production-docs-host.example',
+  baseUrl: '/',
 
   organizationName: 'wso2',
   projectName: 'docs-wso2cloud',
