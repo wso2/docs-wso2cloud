@@ -1,43 +1,65 @@
-# Website
+# WSO2 Cloud Docs
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+Documentation site for WSO2 Cloud, built with [Docusaurus](https://docusaurus.io/).
 
-## Installation
+## Prerequisites
+
+Node.js 20 or above.
+
+## Install
 
 ```bash
 npm install
 ```
 
-**Note**: feel free to use the package manager of your choice.
-
-## Local Development
+## Local development
 
 ```bash
-npm run start
+npm start
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+Starts a dev server on <http://localhost:3000> with live reload.
+
+> Static assets in `static/` are copied at startup. Restart the server after
+> changing them.
 
 ## Build
 
 ```bash
 npm run build
+npm run serve
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+`npm run build` writes a static site to `build/`. Use `npm run serve` to preview
+it: the site is configured with `baseUrl: '/docs-wso2cloud/'`, so serving
+`build/` from a plain web root will not resolve assets.
 
-## Deployment
-
-Using SSH:
+## Type checking
 
 ```bash
-USE_SSH=true npm run deploy
+npm run typecheck
 ```
 
-Not using SSH:
+## Layout
+
+The site uses the standard Docusaurus classic theme: navbar, docs sidebar and
+footer. The home page redirects to `docs/intro`. Pages live in `docs/`, and the
+sidebar is generated from that folder.
+
+Search uses
+[`@easyops-cn/docusaurus-search-local`](https://github.com/easyops-cn/docusaurus-search-local).
+The index is built at `npm run build` time, so search returns no results under
+`npm start`. Use `npm run build && npm run serve` to test it.
+
+## Deploy
 
 ```bash
-GIT_USER=<Your GitHub username> npm run deploy
+npm run deploy
 ```
 
-If you are using GitHub Pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Publishes to GitHub Pages, per `organizationName` and `projectName` in
+`docusaurus.config.ts`.
+
+## License
+
+Apache License 2.0. See [LICENSE](LICENSE).
