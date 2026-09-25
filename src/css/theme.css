@@ -1,0 +1,666 @@
+/*
+ * Theme layer for the WSO2 Cloud documentation.
+ *
+ * Adapted from the WSO2 Agent Manager docs theme
+ * (github.com/wso2/docs-agent-platform, src/css/amp-theme.css, Apache-2.0)
+ * so the two sites share one look and feel. Loaded after custom.css.
+ *
+ * Top-level sidebar entries get the section-header treatment (bold label and
+ * masked icon) only when they carry a `sidebar-section-icon-*` className in
+ * sidebars.ts; see section 5b.
+ */
+
+/* =========================== 1. Primary ramp ============================ */
+
+:root {
+  --ifm-color-primary-darkest: #b8480f;
+  --ifm-color-primary-darker: #d15518;
+  --ifm-color-primary-dark: #e35f20;
+  --ifm-color-primary: #fa7b3f;
+  --ifm-color-primary-light: #fb9263;
+  --ifm-color-primary-lighter: #fca985;
+  --ifm-color-primary-lightest: #fdc7ae;
+}
+
+[data-theme='dark'] {
+  /* Lift the ramp slightly so orange stays legible on a dark ground. */
+  --ifm-color-primary-darkest: #d15518;
+  --ifm-color-primary-darker: #e35f20;
+  --ifm-color-primary-dark: #fa7b3f;
+  --ifm-color-primary: #fb8c55;
+  --ifm-color-primary-light: #fca17a;
+  --ifm-color-primary-lighter: #fdb897;
+  --ifm-color-primary-lightest: #fed3bd;
+}
+
+/* ============================ 2. Typography ============================= */
+
+:root {
+  --ifm-font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto,
+    Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+  --ifm-font-family-monospace: SFMono-Regular, Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  --ifm-font-size-base: 16px;
+  --ifm-heading-color: var(--ifm-font-color-base);
+  --ifm-heading-font-weight: 700;
+  --ifm-code-font-size: 95%;
+
+  /* Rhythm — this is where the "airy" feel comes from, not the sizes. */
+  --ifm-line-height-base: 1.75;
+  --ifm-paragraph-margin-bottom: 1.1rem;
+  --ifm-heading-margin-bottom: 0.65rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', Ubuntu, Cantarell,
+    'Helvetica Neue', sans-serif;
+}
+
+/* Section separation inside doc content. */
+.markdown h2 {
+  margin-top: 2.5rem;
+}
+
+.markdown h3 {
+  margin-top: 1.75rem;
+}
+
+/* Infima defaults prose to 0.875rem; 1rem reads better at this measure. */
+.markdown {
+  font-size: 1rem;
+}
+
+.markdown > p,
+.markdown > ul,
+.markdown > ol,
+.markdown > pre {
+  margin-bottom: 1.1rem;
+}
+
+.markdown > h2,
+.markdown > h3,
+.markdown > h4,
+.markdown > h5,
+.markdown > h6 {
+  margin-bottom: 0.65rem;
+}
+
+/* ========================= 3. Page background =========================== */
+
+:root {
+  --site-background-attachment: fixed;
+  --site-background:
+    radial-gradient(circle at 65% 30%, rgb(250 123 63 / 6%) 10%, rgba(0, 0, 0, 0) 60% 40%),
+    radial-gradient(circle at 15% 50%, rgb(251 146 99 / 9%) 1%, rgb(0 0 0 / 0%) 40% 70%),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, var(--ifm-background-color) 100%);
+}
+
+[data-theme='dark'] {
+  --site-background:
+    radial-gradient(circle at 15% 50%, rgb(250 123 63 / 10%) 0%, rgb(26 13 6 / 0%) 40% 70%),
+    radial-gradient(circle at 65% 30%, rgb(227 95 32 / 16%) 10%, rgba(26, 13, 6, 0%) 60% 40%),
+    radial-gradient(circle at center, rgba(0, 0, 0, 0.6) 0%, var(--ifm-background-color) 100%);
+}
+
+html #__docusaurus {
+  background-color: var(--ifm-background-color);
+  background-attachment: var(--site-background-attachment);
+  background-image: var(--site-background);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Wrappers must be transparent so the gradient on #__docusaurus shows. */
+html[data-theme='dark'] .main-wrapper,
+html[data-theme='dark'] .container,
+html[data-theme='dark'] [class*='docsWrapper'],
+html[data-theme='dark'] [class*='docRoot'],
+html[data-theme='dark'] [class*='docMainContainer'] {
+  background: transparent;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* ============================== 4. Layout =============================== */
+
+:root {
+  --ifm-container-width: 1600px;
+  --ifm-container-width-xl: 1600px;
+}
+
+/* Doubled :root outranks theme-classic's own --doc-sidebar-width. */
+:root:root {
+  --doc-sidebar-width: 360px;
+}
+
+.theme-doc-markdown.markdown {
+  max-width: 820px;
+  overflow: visible;
+  position: relative;
+}
+
+.theme-doc-markdown.markdown li:has(> table),
+.theme-doc-markdown.markdown li:has(> pre),
+.theme-doc-markdown.markdown li:has(> [class*='codeBlockContainer']),
+.theme-doc-markdown.markdown li:has(> .tabs-container),
+.theme-doc-markdown.markdown li:has(> .theme-admonition),
+.theme-doc-markdown.markdown li:has(> img) {
+  max-width: 100%;
+}
+
+.theme-doc-markdown.markdown table,
+.theme-doc-markdown.markdown pre,
+.theme-doc-markdown.markdown [class*='codeBlockContainer'],
+.theme-doc-markdown.markdown .tabs-container,
+.theme-doc-markdown.markdown .theme-admonition,
+.theme-doc-markdown.markdown img {
+  max-width: 100%;
+}
+
+[class*='docItemCol'] {
+  padding-left: 3rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 997px) {
+  [class*='docItemCol'][class*='docItemCol'] {
+    max-width: min(75%, calc(820px + 3rem + 1rem)) !important;
+  }
+}
+
+@media (min-width: 997px) {
+  [class*='docsWrapper'] main[class*='docMainContainer'] > .container {
+    padding-top: 3.5rem;
+  }
+}
+
+/* =========================== 5a. Sidebar chrome ========================= */
+
+:root {
+  --ifm-menu-color-background-hover: none;
+}
+
+.theme-doc-sidebar-container {
+  background: transparent;
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
+.theme-doc-sidebar-container .menu {
+  padding: 0.5rem 2rem 1rem 1.75rem;
+}
+
+.theme-doc-sidebar-container .menu > .menu__list {
+  padding-left: 0;
+}
+
+.theme-doc-sidebar-menu {
+  margin-top: 2rem;
+}
+
+/* Drop the divider rule between sidebar and content. */
+[class*='docSidebarContainer'],
+aside.theme-doc-sidebar-container {
+  border-right: none;
+  border-right-width: 0;
+}
+
+/* ---- Item styling ---- */
+
+.theme-doc-sidebar-container .menu__list {
+  border-left: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.theme-doc-sidebar-container .menu__link {
+  border-radius: 6px;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.875rem;
+  font-weight: 400;
+  padding: 0.45rem 0.75rem;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+/* :where() keeps specificity low so :hover below still wins. */
+[data-theme='light'] .theme-doc-sidebar-container .menu__link:where(:not(.menu__link--active)) {
+  color: var(--ifm-color-emphasis-800);
+}
+
+.theme-doc-sidebar-container .menu__link:hover {
+  background: color-mix(in srgb, var(--ifm-color-emphasis-200) 40%, transparent);
+  color: var(--ifm-color-emphasis-900);
+}
+
+.theme-doc-sidebar-container .menu__link--active {
+  background: color-mix(in srgb, var(--ifm-color-primary) 10%, transparent);
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+/* ---- Collapsible rows ---- */
+
+.theme-doc-sidebar-container .menu__list-item-collapsible {
+  align-items: center;
+  border-radius: 6px;
+  display: flex;
+  transition: background 0.15s ease;
+}
+
+.theme-doc-sidebar-container .menu__list-item-collapsible:hover {
+  background: color-mix(in srgb, var(--ifm-color-emphasis-200) 40%, transparent);
+}
+
+.theme-doc-sidebar-container .menu__list-item-collapsible > .menu__link {
+  background: transparent;
+  border-radius: 0;
+  flex: 1;
+  padding-right: 0.5rem;
+}
+
+.theme-doc-sidebar-container .menu__list-item-collapsible > .menu__link:hover {
+  background: transparent;
+}
+
+.theme-doc-sidebar-container .menu__list-item-collapsible > .menu__link--active {
+  background: transparent;
+  color: var(--ifm-color-primary);
+}
+
+.theme-doc-sidebar-container .menu__list-item-collapsible > .menu__caret {
+  flex-shrink: 0;
+  opacity: 1;
+  padding: 0.25rem 0.4rem;
+  transition: transform 0.2s ease;
+}
+
+/* ---- Nesting indentation ---- */
+
+.theme-doc-sidebar-container .theme-doc-sidebar-item-category > .menu__list {
+  padding-left: calc(17px + 0.5rem);
+}
+
+.theme-doc-sidebar-container .theme-doc-sidebar-item-category > .menu__list .menu__list {
+  padding-left: 0.75rem;
+}
+
+/* ======================= 5b. Sidebar section headers ==================== */
+
+.theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-category[class*='sidebar-section-icon-']
+  > .menu__list-item-collapsible
+  > .menu__link,
+.theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-link[class*='sidebar-section-icon-']
+  > .menu__link {
+  align-items: center;
+  background: none;
+  color: var(--ifm-font-color-base);
+  display: flex;
+  font-size: 0.95rem;
+  font-weight: 700;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem 0.6rem;
+}
+
+[data-theme='dark']
+  .theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-category[class*='sidebar-section-icon-']
+  > .menu__list-item-collapsible
+  > .menu__link,
+[data-theme='dark']
+  .theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-link[class*='sidebar-section-icon-']
+  > .menu__link {
+  color: #ffffff;
+}
+
+.theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-category[class*='sidebar-section-icon-']
+  > .menu__list-item-collapsible:hover
+  > .menu__link,
+.theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-link[class*='sidebar-section-icon-']
+  > .menu__link:hover {
+  background: none;
+  color: var(--ifm-color-primary);
+}
+
+/* Space between one section and the next. */
+.theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-category[class*='sidebar-section-icon-'],
+.theme-doc-sidebar-container .menu > .menu__list > .theme-doc-sidebar-item-link[class*='sidebar-section-icon-'] {
+  margin-top: 1.25rem;
+}
+
+/* The icon itself, painted from --sidebar-section-icon via a mask. */
+.theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-category[class*='sidebar-section-icon-']
+  > .menu__list-item-collapsible
+  > .menu__link::before,
+.theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-link[class*='sidebar-section-icon-']
+  > .menu__link::before {
+  background-color: var(--ifm-color-emphasis-700);
+  content: '';
+  display: block;
+  flex-shrink: 0;
+  height: 17px;
+  width: 17px;
+  mask-image: var(--sidebar-section-icon);
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-image: var(--sidebar-section-icon);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+
+.theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-category[class*='sidebar-section-icon-']
+  > .menu__list-item-collapsible
+  > .menu__link--active,
+.theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-link[class*='sidebar-section-icon-']
+  > .menu__link--active {
+  color: var(--ifm-color-primary);
+}
+
+[data-theme='dark']
+  .theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-category[class*='sidebar-section-icon-']
+  > .menu__list-item-collapsible
+  > .menu__link--active,
+[data-theme='dark']
+  .theme-doc-sidebar-container
+  .menu
+  > .menu__list
+  > .theme-doc-sidebar-item-link[class*='sidebar-section-icon-']
+  > .menu__link--active {
+  color: var(--ifm-color-primary);
+}
+
+/* ---- Per-section icons ---- */
+
+/* Lucide icons (ISC license). Add one class per top-level sidebar section. */
+.sidebar-section-icon-get-started {
+  --sidebar-section-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z'/%3E%3Cpath d='m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z'/%3E%3Cpath d='M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0'/%3E%3Cpath d='M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5'/%3E%3C/svg%3E");
+}
+
+.sidebar-section-icon-manage {
+  --sidebar-section-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='4' y1='21' x2='4' y2='14'/%3E%3Cline x1='4' y1='10' x2='4' y2='3'/%3E%3Cline x1='12' y1='21' x2='12' y2='12'/%3E%3Cline x1='12' y1='8' x2='12' y2='3'/%3E%3Cline x1='20' y1='21' x2='20' y2='16'/%3E%3Cline x1='20' y1='12' x2='20' y2='3'/%3E%3Cline x1='1' y1='14' x2='7' y2='14'/%3E%3Cline x1='9' y1='8' x2='15' y2='8'/%3E%3Cline x1='17' y1='16' x2='23' y2='16'/%3E%3C/svg%3E");
+}
+
+.sidebar-section-icon-support {
+  --sidebar-section-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cline x1='4.93' y1='4.93' x2='9.17' y2='9.17'/%3E%3Cline x1='14.83' y1='14.83' x2='19.07' y2='19.07'/%3E%3Cline x1='14.83' y1='9.17' x2='19.07' y2='4.93'/%3E%3Cline x1='4.93' y1='19.07' x2='9.17' y2='14.83'/%3E%3C/svg%3E");
+}
+
+.sidebar-section-icon-hosting {
+  --sidebar-section-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='2' width='20' height='8' rx='2' ry='2'/%3E%3Crect x='2' y='14' width='20' height='8' rx='2' ry='2'/%3E%3Cline x1='6' y1='6' x2='6.01' y2='6'/%3E%3Cline x1='6' y1='18' x2='6.01' y2='18'/%3E%3C/svg%3E");
+}
+
+.sidebar-section-icon-architecture {
+  --sidebar-section-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 2 7 12 12 22 7 12 2'/%3E%3Cpolyline points='2 17 12 22 22 17'/%3E%3Cpolyline points='2 12 12 17 22 12'/%3E%3C/svg%3E");
+}
+
+/* ========================= 6. Navbar and TOC ============================ */
+
+.navbar {
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  box-shadow: none;
+  padding: 0 2.5rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+html[data-theme='dark'] .navbar {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.navbar__item,
+.menu__link {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.navbar__items--right {
+  gap: 0.25rem;
+}
+
+@media (min-width: 997px) {
+  .navbar .navbar__brand {
+    margin-left: 0;
+  }
+}
+
+/* ---- Dropdown chevron ---- */
+
+.dropdown > .navbar__link {
+  align-items: center;
+  display: flex;
+}
+
+.dropdown > .navbar__link::after {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414Z' fill='%23888888'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 12px;
+  border: none;
+  content: '';
+  height: 12px;
+  position: static;
+  top: auto;
+  transform: none;
+  width: 12px;
+}
+
+html[data-theme='dark'] .dropdown > .navbar__link::after {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414Z' fill='%23ffffff'/%3E%3C/svg%3E");
+}
+
+.dropdown:hover > .navbar__link::after {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414Z' fill='%23fa7b3f'/%3E%3C/svg%3E");
+}
+
+html[data-theme='dark'] .dropdown:hover > .navbar__link::after {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414Z' fill='%23fa7b3f'/%3E%3C/svg%3E");
+}
+
+/* ---- Table of contents ---- */
+
+:root {
+  --ifm-toc-border-color: var(--ifm-color-emphasis-200);
+  --ifm-toc-padding-vertical: 0.8rem;
+}
+
+.table-of-contents,
+[class*='tocCollapsible'],
+div[class*='tableOfContents'] {
+  padding-left: 1rem;
+}
+
+/* Below 1250px a 220px TOC would overflow next to the 360px sidebar. */
+@media (min-width: 1250px) {
+  .table-of-contents,
+  [class*='tocCollapsible'],
+  div[class*='tableOfContents'] {
+    min-width: 220px;
+  }
+}
+
+div[class*='col--3'] {
+  margin-left: auto;
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
+/* ================== 7. Code blocks, inline code, admonitions ============ */
+
+/* ---- Code block filename tab ---- */
+
+[class*='codeBlockTitle'] {
+  background: color-mix(in srgb, var(--ifm-color-primary) 5%, var(--ifm-color-emphasis-100));
+  border-bottom: 1px solid color-mix(in srgb, var(--ifm-color-primary) 15%, var(--ifm-color-emphasis-200));
+  color: var(--ifm-color-content-secondary);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 0.45rem var(--ifm-pre-padding);
+}
+
+[data-theme='dark'] [class*='codeBlockTitle'] {
+  background: color-mix(in srgb, var(--ifm-color-primary) 8%, rgba(255, 255, 255, 0.04));
+  border-bottom-color: color-mix(in srgb, var(--ifm-color-primary) 20%, rgba(255, 255, 255, 0.06));
+  color: color-mix(in srgb, var(--ifm-color-primary) 40%, var(--ifm-color-emphasis-600));
+}
+
+/* ---- Inline code pills ---- */
+
+.markdown code:not([class*='language-']):not(pre code) {
+  background-color: color-mix(in srgb, var(--ifm-color-primary) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ifm-color-primary) 18%, transparent);
+  border-radius: 4px;
+  color: var(--ifm-color-primary-darkest);
+  font-size: 0.875em;
+  padding: 0.1em 0.4em;
+}
+
+[data-theme='dark'] .markdown code:not([class*='language-']):not(pre code) {
+  color: var(--ifm-color-primary-light);
+}
+
+.markdown strong,
+.markdown b {
+  color: var(--ifm-font-color-base);
+  font-weight: 700;
+}
+
+/* ---- Code blocks: the <pre> is the sole visual layer ---- */
+
+/* Compound selector beats the hashed codeBlockContainer rule. */
+.theme-code-block[class*='codeBlockContainer'],
+[class*='codeBlockContainer_'] {
+  background: transparent;
+  border-radius: 8px;
+  box-shadow: none;
+  margin-bottom: 1.1rem;
+  overflow: hidden;
+}
+
+.theme-code-block[class*='codeBlockContainer'] pre.prism-code,
+[class*='codeBlockContainer_'] pre.prism-code {
+  border-radius: 8px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0;
+  padding: 1rem 1.25rem;
+}
+
+.theme-code-block [class*='codeBlockContent'],
+[class*='codeBlockContent_'] {
+  background: transparent;
+}
+
+[class*='codeBlockContainer'] [class*='buttonGroup'] {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+}
+
+.tabs-container > .margin-top--md {
+  margin-top: 1.5rem;
+}
+
+/* ---- Admonitions ---- */
+
+.theme-admonition {
+  border-radius: 8px;
+  border-style: solid;
+  border-width: 1px;
+  padding: 0.875rem 1rem;
+}
+
+.theme-admonition [class*='admonitionHeading'] {
+  align-items: center;
+  display: flex;
+  font-size: 0.7rem;
+  font-weight: 700;
+  gap: 0.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+[class*='admonitionContent'] p {
+  font-size: 0.9rem;
+  margin-top: 0.35rem;
+}
+
+/* Uniform translucent fill tinted to match the admonition's own border. */
+.theme-admonition.alert {
+  background-color: color-mix(in srgb, var(--ifm-alert-border-color) 10%, transparent);
+  background-image: none;
+}
+
+/* =========================== 8. Responsive ============================= */
+
+/* Unwind desktop padding once the sidebar becomes a drawer. */
+@media (max-width: 996px) {
+  [class*='docItemCol'] {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .navbar {
+    padding: 0 1rem;
+  }
+
+  /* Let breadcrumbs wrap rather than overflow on narrow screens. */
+  nav.theme-doc-breadcrumbs .breadcrumbs {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    row-gap: 0.35rem;
+  }
+
+  nav.theme-doc-breadcrumbs .breadcrumbs__item,
+  nav.theme-doc-breadcrumbs .breadcrumbs__link {
+    align-items: center;
+    display: inline-flex;
+    max-width: 100%;
+  }
+
+  /* The mobile drawer reuses .menu__link; keep it tappable. */
+  .navbar-sidebar .menu__link {
+    font-size: 0.95rem;
+  }
+}

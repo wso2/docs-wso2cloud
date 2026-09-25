@@ -37,7 +37,8 @@ const config: Config = {
         },
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          // theme.css layers the shared WSO2 docs theme over custom.css.
+          customCss: ['./src/css/custom.css', './src/css/theme.css'],
         },
       } satisfies Preset.Options,
     ],
@@ -61,9 +62,9 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Cloud Docs',
+      title: 'WSO2 Cloud',
       logo: {
-        alt: 'WSO2',
+        alt: 'WSO2 Cloud',
         src: 'img/favicon.ico',
       },
       items: [
@@ -73,12 +74,41 @@ const config: Config = {
           position: 'left',
           label: 'Documentation',
         },
+        {
+          href: 'https://github.com/wso2/docs-wso2cloud',
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
+        },
       ],
     },
     footer: {
       style: 'dark',
-      links: [],
-      copyright: `Copyright © ${new Date().getFullYear()} WSO2 LLC.`,
+      links: [
+        {
+          title: 'Documentation',
+          items: [
+            {
+              label: 'What is WSO2 Cloud?',
+              to: '/docs/get-started/what-is-wso2-cloud',
+            },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            {
+              label: 'GitHub',
+              href: 'https://github.com/wso2/docs-wso2cloud',
+            },
+            {
+              label: 'WSO2',
+              href: 'https://wso2.com',
+            },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} WSO2 LLC. Licensed under Apache License 2.0.`,
     },
     prism: {
       theme: prismThemes.github,
