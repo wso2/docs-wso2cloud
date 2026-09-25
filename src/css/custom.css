@@ -1,0 +1,28 @@
+/**
+ * Global styles for the WSO2 Cloud docs site.
+ * Overrides the default Infima variables.
+ */
+
+:root {
+  /* WSO2 brand orange, sampled from static/img/favicon.ico */
+  --ifm-color-primary: #f4511e;
+  --ifm-color-primary-dark: #e04517;
+  --ifm-color-primary-darker: #d44016;
+  --ifm-color-primary-darkest: #b33612;
+  --ifm-color-primary-light: #f66a3d;
+  --ifm-color-primary-lighter: #f87d55;
+  --ifm-color-primary-lightest: #fa9b7d;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #ff7043;
+  --ifm-color-primary-dark: #ff5722;
+  --ifm-color-primary-darker: #f4511e;
+  --ifm-color-primary-darkest: #d84315;
+  --ifm-color-primary-light: #ff8a65;
+  --ifm-color-primary-lighter: #ffab91;
+  --ifm-color-primary-lightest: #ffccbc;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
