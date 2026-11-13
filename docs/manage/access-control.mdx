@@ -6,12 +6,13 @@ description: How access works in WSO2 Cloud, with built-in roles granted to grou
 
 # Access control
 
-Access in WSO2 Cloud works through groups and roles:
+Access in WSO2 Cloud works through groups, roles, and assignments:
 
 - A **role** is a set of permissions, such as creating projects or inviting users. WSO2 Cloud has five built-in roles, and they're the same in every organization and every service.
-- A **group** holds people. Each group is granted a role, and everyone in the group gets that role's permissions.
+- A **group** holds people.
+- An **assignment** gives a group a role, either across the whole organization or on an instance of a resource.
 
-You never give a role to a person directly. To decide what someone can do, you choose which group they join. You choose it when you [invite them](./invite-users.mdx).
+You never give a role to a person directly. To decide what someone can do, you choose which group they join, and the assignments on that group decide what the group can reach. You choose the group when you [invite them](./invite-users.mdx).
 
 ## Built-in roles
 
@@ -27,7 +28,7 @@ Give the **Admin** role only to the people who need to administer the organizati
 
 ## What each role can do
 
-The table shows the main organization-level permissions. Each role also grants permissions inside each service. To see every permission a role grants, open it on the **Roles** tab. See [View groups and roles](#view-groups-and-roles).
+The table shows the main organization-level permissions. Each role also grants permissions inside each service. To see every permission a role grants, open it on the **Roles** tab. See [View groups, roles and assignments](#view-groups-roles-and-assignments).
 
 | Permission | Admin | Platform Engineer | Developer | Viewer | API Publisher |
 | --- | :-: | :-: | :-: | :-: | :-: |
@@ -53,7 +54,44 @@ Every organization has one built-in group for each role, with the same name as t
 
 To change the group a member is in, [remove the member](./invite-users.mdx#remove-a-member) and [invite them again](./invite-users.mdx#send-invitations) with the new group.
 
-## View groups and roles
+## Assignments
+
+An assignment gives a group a role, and says where that role applies. Every assignment has a scope which could be either the whole organization or an instance of a resource.
+
+When an organization is created, each built-in group is assigned the role with the relevant permissions, across the whole organization. That's why access works from day one without anyone setting assignments up.
+
+### Organization-level assignments
+
+An organization-level assignment gives the group its role everywhere in the organization, including existing and new instances of resources.
+
+Use these when access shouldn't depend on which resources someone is working with. The five default assignments created with your organization are all of this kind.
+
+Organization-level assignments always grant access. To take access away, simply remove the assignment.
+
+### Resource-level assignments
+
+A resource-level assignment gives a group a role on a single instance of a resource. Projects are the resource type available today.
+
+Use these when a group should reach some resources and not others. For example, to give each team its own project and nothing more, remove the Developer group's organization-level assignment and give each team's group a resource-level assignment to its own project.
+
+When you add a resource-level assignment, you also choose an environment and an effect.
+
+**Environment.** Choose **All environments**, or a single one. A group assigned a role in only one environment can still see the resource, but can work in it only in that environment. Renaming or deleting the resource itself needs an assignment that covers all environments, because the resource isn't part of any single environment.
+
+**Effect.** Choose **Allow** to grant the role, or **Deny** to take it away. A denial always wins. If one assignment allows a group on a resource and another denies it, the group is denied. Use a denial to carve one resource out of access that an organization-level assignment grants.
+
+### Examples
+
+Each row is the complete set of assignments on one group.
+
+| Assignments on the group | What the group gets |
+| --- | --- |
+| Developer role, across the organization | The Developer role on every project, including ones created later. |
+| Developer role on Project A | The Developer role on Project A, and nothing on any other project. |
+| Developer role across the organization, and a **Deny** of the Developer role on Project B | The Developer role on every project except Project B. |
+| Developer role on Project A, in the Development environment only | They can see Project A and work in it in Development. Not in other environments, and they can't rename or delete the project itself. |
+
+## View groups, roles and assignments
 
 1. Sign in to the [WSO2 Cloud console](https://console.cloud.wso2.com).
 2. In the top bar, select **Settings**.
@@ -63,7 +101,17 @@ The page has three tabs:
 
 - **Groups** lists the organization's groups. Select a group to see its members and the role it's granted.
 - **Roles** lists the roles and the group each one is granted to. Select a role to browse every permission it grants, grouped by service.
-- **Assignments** lists which group holds which role across the organization. Each built-in group holds the role with the same name. Admins can add an assignment to give a group another role, or delete one. The assignment that gives the **Admin** group the **Admin** role can't be deleted.
+- **Assignments** lists which group holds which role, and where.
+
+### Add an assignment
+
+1. Open the **Assignments** tab.
+2. Select **New assignment**.
+3. Choose the **group** and the **role** to give it.
+4. Choose the scope: the organization, or a resource such as a project. For a resource, choose the environment and whether to allow or deny.
+5. Review the summary and confirm.
+
+An assignment that already exists with the opposite effect is reported instead of being added. Delete the existing one first.
 
 Changes to a member's access take effect the next time they sign in or their session refreshes.
 
