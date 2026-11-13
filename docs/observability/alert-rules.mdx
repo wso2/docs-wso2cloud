@@ -14,7 +14,7 @@ This article shows you how to create alert rules that watch a component and send
 - **Metric or log rules.** A metric rule watches the component's CPU or memory usage, as a percentage. A log rule counts the component's log lines that contain a text you choose.
 - **Checked on a schedule.** Each check looks back over the rule's window, such as the last 10 minutes, and fires when the value meets the condition.
 - **Deployed with the component.** Saving a rule applies it to each environment the component runs in. If an environment runs an older version of the component, the rule applies there on the component's next deploy.
-- **Release lines.** Each release line of a component has its own rules, and also runs the main line's rules. See [Rules on release lines](#rules-on-release-lines).
+- **Deployment tracks.** Each deployment track of a component has its own rules, and also runs the default track's rules. See [Rules on deployment tracks](#rules-on-deployment-tracks).
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@ This article shows you how to create alert rules that watch a component and send
 1. Sign in to the [WSO2 Cloud console](https://console.cloud.wso2.com).
 2. In the left navigation, select **Observability**, then **Alerts**.
 3. Select the **Rules** tab, then select **Create rule**.
-4. Under **Component**, select the **Project**, the **Component**, and the **Release line**. Keep **main** unless you want the rule on one release line only.
+4. Under **Component**, select the **Project**, the **Component**, and the **Deployment track**. Keep **Default** unless you want the rule on one deployment track only. For a component with no other deployment tracks, **Default** is the only choice.
 5. Under **Alert definition**, define the rule, as described in [Rule settings](#rule-settings).
 6. Under **Recipients**, choose where each environment sends alerts, as described in [Recipients](#recipients).
 7. Select **Create**.
@@ -87,20 +87,20 @@ In the rule's details, each environment shows one of these states:
 
 You can only create a rule on a component that's deployed. If the component is later undeployed from every environment, its rules show **Needs attention**, and run again once the component is deployed.
 
-## Rules on release lines
+## Rules on deployment tracks
 
-If a component has release lines other than **main**, each release line has its own rules and also runs the main line's rules. The **Release line** column shows where a rule comes from:
+If a component has deployment tracks other than **Default**, each deployment track has its own rules and also runs the default track's rules. The **Deployment track** column shows where a rule comes from:
 
 | Label | Meaning |
 | --- | --- |
-| **From main** | The release line runs the main line's rule as it is. Changes to the main line's rule apply to the release line on its next deploy. |
-| **Changed from main** | The release line has its own version of a main line rule. It no longer gets the main line's changes. |
+| **From default** | The deployment track runs the default track's rule as it is. Changes to the default track's rule apply to the deployment track on its next deploy. |
+| **Changed from default** | The deployment track has its own version of a default track rule. It no longer gets the default track's changes. |
 
-To change a main line rule for one release line only, edit the rule in that release line's row. The release line then gets its own version. To go back to the main line's version, select the delete icon in the row, then **Reset**. You can't delete a rule that comes from the main line, but you can edit it to turn off its alerts for the release line.
+To change a default track rule for one deployment track only, edit the rule in that deployment track's row. The deployment track then gets its own version. To go back to the default track's version, select the delete icon in the row, then **Reset**. You can't delete a rule that comes from the default track, but you can edit it to turn off its alerts for the deployment track.
 
 ## Manage rules
 
-On the **Rules** tab, use **Search by rule name**, or filter the list by **Project**, **Component**, **Release line**, or **Severity**. Select a project before filtering by component, and a component before filtering by release line.
+On the **Rules** tab, use **Search by rule name**, or filter the list by **Project**, **Component**, **Deployment track**, or **Severity**. Select a project before filtering by component, and a component before filtering by deployment track.
 
 ### Edit a rule
 
@@ -114,14 +114,14 @@ If your changes stop alerts going to some channels, the console lists them and a
 1. In the rule's row, select the delete icon.
 2. Select **Delete** to confirm.
 
-The rule is removed from every environment, and this can't be undone. Deleting a main line rule also removes it from the release lines that run it, including their own versions of it. If an environment runs an older version of the component, the rule is turned off there right away, and fully removed on the component's next deploy.
+The rule is removed from every environment, and this can't be undone. Deleting a default track rule also removes it from the deployment tracks that run it, including their own versions of it. If an environment runs an older version of the component, the rule is turned off there right away, and fully removed on the component's next deploy.
 
 ## Troubleshoot
 
 | Problem | What to check |
 | --- | --- |
 | "Your plan allows *N* alert rules. Upgrade it to add more." | Your organization has reached its WSO2 Cloud plan's alert rule limit. Delete rules you don't need, or [upgrade your subscription](../manage/manage-your-subscription.mdx). |
-| You can't create a rule on a component | The component is deployed to at least one environment, and has fewer than 10 rules on the release line. Scheduled automations don't support alert rules. For other types that don't, the form says "Alert rules aren't available for this component's type." |
+| You can't create a rule on a component | The component is deployed to at least one environment, and has fewer than 10 rules on the deployment track. Scheduled automations don't support alert rules. For other types that don't, the form says "Alert rules aren't available for this component's type." |
 | The form says an environment has no default channel | Pick a channel for the environment, or [create a channel](./notification-channels.mdx#create-a-channel) there. |
 | The rule shows **Waiting for deploy** | Deploy the component to the environment. |
 | The rule fires, but no one is notified | On the **History** tab, check the alert's **Channels**. Then [test the channel](./notification-channels.mdx#test-a-channel). |

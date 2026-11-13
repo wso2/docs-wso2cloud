@@ -89,7 +89,7 @@ When a rule fires, WSO2 Cloud sends a `POST` request with a JSON body to the web
   "component": "orders-api",
   "project": "orders",
   "environment": "production",
-  "releaseLine": ""
+  "deploymentTrack": ""
 }
 ```
 
@@ -103,11 +103,11 @@ When a rule fires, WSO2 Cloud sends a `POST` request with a JSON body to the web
 | `alertThreshold` | The rule's threshold. |
 | `alertTimestamp` | When the alert fired. |
 | `component`, `project`, `environment` | Where the alert fired. |
-| `releaseLine` | The component's release line, or empty for its main line. |
+| `deploymentTrack` | The component's deployment track, or empty for its default track. |
 
 ## Email alerts
 
-An alert email's subject names the severity, the rule, and the environment, such as `[critical] high-cpu triggered in production`. The email shows the rule's description, the component, release line, project, environment, measured value, threshold, and time.
+An alert email's subject names the severity, the rule, and the environment, such as `[critical] high-cpu triggered in production`. The email shows the rule's description, the component, deployment track, project, environment, measured value, threshold, and time.
 
 ## Manage channels
 
