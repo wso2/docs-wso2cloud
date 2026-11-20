@@ -2,7 +2,7 @@
 sidebar_position: 4
 title: Try the Customer Support Agent sample
 sidebar_label: Try a sample
-description: What an AI agent needs in production, how Choreo Cloud covers it, and a Customer Support Agent sample you can deploy and try.
+description: Deploy the Customer Support Agent sample on Choreo Cloud, with the MCP server and the API that it uses, and see what to consider before an agent goes to production.
 ---
 
 import ThemedImage from '@theme/ThemedImage';
@@ -10,27 +10,17 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Try the Customer Support Agent sample
 
-The Customer Support Agent sample gives you a working AI agent on Choreo Cloud, together with the MCP server and the API that it uses. Deploy it to see what running an agent on Choreo Cloud looks like.
+**Customer Support Agent** is a sample AI agent that answers questions about products, stock availability, and store policies for a demo outdoor gear store.
 
-Writing an agent is the first step. To run it in production, you also need control, visibility, evaluation, guardrails, and access to your data. This page explains how Choreo Cloud handles each of these, then takes you through deploying the sample.
+Deploy it to explore how agents use MCP servers and APIs to access business data, and how Choreo Cloud brings these components together.
 
-## What a production agent needs
+## Try the sample
 
-Before an agent goes to production, consider the following aspects:
+The sample has three components: an agent, an MCP server that gives the agent its tools, and an API that holds the store's data.
 
-- **What the agent can do** should be limited to the models and tools it needs. In Agent Management, you can attach LLM providers and MCP servers to each agent, and the agent reaches them through a gateway where you can set access control and rate limits.
-- **What the agent does** should be visible, because an agent decides its own steps. Agent Management records each run as a trace, with every LLM call, tool call, and MCP request, along with token counts and latency. See [Observability](https://choreolabs.com/agent-platform/docs/cloud/concepts/observability/).
-- **How well the agent performs** needs to be measured, because an answer can look right and still be wrong. Evaluators in Agent Management score the agent's runs on accuracy, safety, reasoning, and tool use, so you can tell whether a change made the agent better. See [Evaluation](https://choreolabs.com/agent-platform/docs/cloud/concepts/evaluation/).
-- **Guardrails** stop the requests and answers that should never pass. Guardrails on an LLM provider check what goes to the model and what comes back, for every agent that uses that provider. See [Add guardrails to your agent](https://choreolabs.com/agent-platform/docs/cloud/tutorials/govern-the-model/).
-- **The information the agent uses** already sits in your APIs and services. For example, you can build MCP servers in Integration that provide the information agents need, so you don't need to build new services for the agent.
-
-## What the sample shows
-
-The sample is a support agent for a demo outdoor gear store. It answers questions about products, stock, and store policies. It has three components:
-
-- **Customer Support Agent**, deployed in Agent Management. It calls an Anthropic LLM provider and the Products MCP server through the Agent Management gateway.
-- **Products MCP server**, deployed in Integration. It offers the store's product data to the agent as tools.
-- **Products API**, deployed in Integration. It serves the store's catalog, stock, and policies, as read-only mock data. It stands in for an API a store would already have.
+- **Customer Support Agent** is deployed in Agent Management. It calls an Anthropic LLM provider and the Products MCP server through the Agent Management gateway.
+- **Products MCP server** is deployed in Integration. It offers the store's product data to the agent as tools.
+- **Products API** is deployed in Integration. It serves the store's catalog, stock, and policies as read-only mock data, and stands in for an API a store would already have.
 
 <ThemedImage
   alt="A user chats with the Customer Support Agent in Agent Management. The agent reaches the Products MCP server through an MCP proxy, and Anthropic through an LLM provider, both on the Agent Management gateway. The Products MCP server reads the Products API. Both run in Integration."
@@ -40,22 +30,37 @@ The sample is a support agent for a demo outdoor gear store. It answers question
   }}
 />
 
-## Deploy and try the sample
+To deploy and try the sample:
 
-1. In the [Choreo Cloud console](https://console.cloud.choreolabs.com), create a project, or open one that's empty.
-2. Under **Try a sample**, deploy the sample in one of two ways:
+1. Ensure you have the following requirements:
+   - A [Choreo Cloud organization](./sign-up.mdx).
+   - An Anthropic LLM provider in Agent Management. If your organization doesn't have one, the console asks you to create it during the sample deploy.
+
+2. In the [Choreo Cloud console](https://console.cloud.choreolabs.com), create a project, or open one that's empty.
+
+3. In the **Try a sample** card, deploy the sample in one of two ways:
    - Select **Deploy sample**, and the console deploys the three components for you.
    - Select **Ask Choreo Agent to deploy**, and Choreo Agent deploys them, guiding you through each step.
 
-   The agent uses an Anthropic LLM provider from your organization. If there isn't one, the console asks you to create it in Agent Management before the deploy continues.
-3. When the deploy is done, open the **Customer Support Agent** in Agent Management.
-4. In **Try It**, ask the agent about the store. For example:
+4. When the deploy is done, open the **Customer Support Agent** in Agent Management.
+
+5. In **Try It**, ask the agent about the store. For example:
    - Which tents do you sell, and how are they different?
    - Is the Summit 2 Tent in stock?
    - What's the warranty on a backpack?
    - Do I get free shipping on a USD 60 order?
 
 The sample's source code is available on [GitHub](https://github.com/wso2/cloud-samples/tree/master/customer-support-agent).
+
+## Prepare an agent for production
+
+Before an agent goes to production, consider the following aspects:
+
+- **What the agent can do** should be limited to the models and tools it needs. In Agent Management, you can attach LLM providers and MCP servers to each agent, behind a gateway with access control and rate limits. The LLM provider's key stays in the platform, not in the agent code.
+- **What the agent does** should be visible, because an agent decides its own steps. Agent Management records each run as a trace, with every LLM call, tool call, and MCP request, so when an answer is wrong, you can see the step that went wrong. See [Observability](https://choreolabs.com/agent-platform/docs/cloud/concepts/observability/).
+- **How well the agent performs** needs to be measured, because an answer can look right and still be wrong. Evaluators score the agent's runs on accuracy, safety, reasoning, and tool use, so you can find a drop in quality before your users do. See [Evaluation](https://choreolabs.com/agent-platform/docs/cloud/concepts/evaluation/).
+- **Guardrails** stop the requests and answers that should never pass. You can set them on an LLM provider, so they apply to every agent that uses it, with no change to the agent code. See [Add guardrails to your agent](https://choreolabs.com/agent-platform/docs/cloud/tutorials/govern-the-model/).
+- **The information the agent uses** already sits in your APIs and services. For example, you can build MCP servers in Integration that provide the information agents need, so you don't need to build new services for the agent.
 
 ## Next steps
 
