@@ -32,6 +32,7 @@ const sidebars: SidebarsConfig = {
         'manage/manage-service-contacts',
         'manage/subscriptions-and-billing',
         'manage/container-registries',
+        'manage/audit-logs',
       ],
     },
     {
