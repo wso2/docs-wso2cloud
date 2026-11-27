@@ -27,6 +27,7 @@ For details, see [Data Privacy and Protection](https://choreolabs.com/security/d
 - **Alert notifications.** Webhook secret headers and mail server logins in notification channels are stored in a secret store and are write-only. Webhooks and mail servers must be public hosts, so alerts can't be sent to internal addresses. See [Set up notification channels](../observability/notification-channels.mdx).
 - **Least-privilege access.** Add people to the **Admin** group only if they administer the organization, and give everyone else the group that matches their job. See [Access control](../manage/access-control.mdx).
 - **Enterprise sign-in.** Let people sign in with your own OpenID Connect identity provider, so your sign-in policies apply to Choreo Cloud. See [Set up enterprise sign-in](../manage/enterprise-sign-in.mdx).
+- **Audit logs.** Changes in API Management are recorded with the user, the action, the resource and the time. Organization admins can request their organization's audit logs. See [Audit logs](../manage/audit-logs.mdx).
 - **Security contacts.** Choreo Labs notifies your security contacts about security incidents, vulnerability disclosures, and critical patches. See [Manage service contacts](../manage/manage-service-contacts.mdx).
 
 Choreo Labs' cloud security processes are described in the [Choreo Labs Security documentation](https://security.docs.choreolabs.com/en/latest/security-processes/cloud-security-process/).
@@ -39,3 +40,4 @@ To report a security issue, follow the process on the [Choreo Labs Security](htt
 
 - [Data residency and regions](./data-residency.mdx)
 - [Access control](../manage/access-control.mdx)
+- [Audit logs](../manage/audit-logs.mdx)

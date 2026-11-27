@@ -1,0 +1,60 @@
+---
+sidebar_position: 10
+title: Audit logs
+description: What Choreo Cloud records about changes in API Management, and how to request your organization's audit logs.
+---
+
+# Audit logs
+
+This article explains what Choreo Cloud records about changes in your organization, and how to get those records. It covers API Management.
+
+An audit log answers who did what, to which resource, in which organization, and when. Choreo Cloud already stores audit records in its database. There's no page in the Choreo Cloud console to view or download them yet. Until there is, Choreo Labs provides your organization's audit logs on request.
+
+## What's recorded
+
+Each audit record names:
+
+- The user who made the change.
+- The action, such as create, update or delete.
+- The resource that changed, and its type.
+- The organization.
+- The time of the change.
+
+API Management records changes to:
+
+- APIs, AI service proxies and MCP proxies.
+- API keys.
+- Gateways and custom policies.
+- Projects, applications, subscriptions and subscription plans.
+- API portals, and the documents and thumbnails of your APIs.
+- Service accounts.
+- API deployments, when they're restored, undeployed or deleted.
+
+Your API portals also record what your API consumers do there, such as creating applications, subscribing to APIs and generating API keys.
+
+Choreo Labs is adding more actions to the audit records and improving their detail.
+
+## Request your audit logs
+
+Until audit logs are available in the console, ask Choreo Labs for them.
+
+### Prerequisites
+
+- Membership in the **Admin** group of the organization.
+- Your Organization Unit ID. See [View organization details](./view-organization-details.mdx).
+
+### Steps
+
+1. Open a ticket in the [Choreo Labs support portal](https://support.choreolabs.com/), or email [cloud@wso2.com](mailto:cloud@wso2.com).
+2. Ask for your organization's audit logs, and include:
+   - Your Organization Unit ID.
+   - The time range you need.
+   - Optionally, the resources or users you're interested in.
+
+Choreo Labs checks that you're an Admin of the organization, then sends you the audit records for that organization.
+
+## Next steps
+
+- [Access control](./access-control.mdx)
+- [Security overview](../security/overview.mdx)
+- [Get support](../support.mdx)
